@@ -1,0 +1,42 @@
+.theme-layout.signup-bg{
+    background-image: url(/public/img/juanmi-navarro-10Uolm7mPtc-unsplash.jpg);
+    background-position: center;
+    background-size: cover;
+}
+.login-reg-bg {
+    background: rgba(0,0,0,0.1) none repeat scroll 0 0;
+    
+    float: left;
+    height: 100vh;
+    position: relative;
+    width: 100%;
+}
+.log-reg-area {
+    background: #fff none repeat scroll 0 0;
+    background: linear-gradient(rgb(206, 208, 218), rgb(230, 234, 236) 65%);
+    box-shadow: 0 0 35px #e2e2e2;
+    display: block;
+    float: none;
+    left: 50%;
+    padding: 35px 55px;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 505px;
+}
+.topbar {
+    background: #fff;
+    display: block;
+    height: 60px;
+    padding: 0 48px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    z-index: 99;
+    position: relative;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+}
+.sign-up-form a.signup-link {
+    color: #fff;
+    font-size: 16px !important;
+}
