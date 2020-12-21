@@ -167,6 +167,30 @@
             ajax.send(formData);
             return false;
         }
+        function toggleLikePage(self) {
+			var ajax = new XMLHttpRequest();
+			ajax.open("POST", "/toggleLikePage", true);
+
+			ajax.onreadystatechange = function () {
+				if (this.readyState == 4 && this.status == 200) {
+					var response = JSON.parse(this.responseText);
+
+					if (response.status == "success") {
+						document.getElementById("btn-toggle-like").innerHTML = "Unlike";
+					}
+					if (response.status == "unliked") {
+						document.getElementById("btn-toggle-like").innerHTML = "Like";
+					}
+					if (response.status == "error") {
+						alert(response.message);
+					}
+				}
+			};
+			var formData = new FormData();
+            formData.append("accessToken", localStorage.getItem("accessToken"));
+            formData.append("_id", document.getElementById("_id").value);
+            ajax.send(formData);
+		}
     </script>
 
     <%- include ("includes/footer") %>

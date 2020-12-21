@@ -479,6 +479,11 @@ http.listen(3000, function () {
 					var ids = [];
 					ids.push(user._id);
 
+					///get page post in your newsfeed
+					for(var a= 0; a<user.pages.length;a++){
+						ids.push(user.pages[a]._id);
+					}
+
 					database.collection("posts")
 						.find({
 							"user._id": {
@@ -927,12 +932,21 @@ http.listen(3000, function () {
 					$options: "i"
 				}
 			}).toArray(function (error, data) {
-
-				result.json({
-					"status": "success",
-					"message": "Record has been fetched",
-					"data": data
+				//search for group
+				database.collection("pages").find({
+					"name":{
+						$regex:".*" + query +".*",
+						$options:"i"
+					}
+				}).toArray(function(error, pages){
+					result.json({
+						"status": "success",
+						"message": "Record has been fetched",
+						"data": data,
+						"pages":pages
+					});
 				});
+				
 			});
 		});
 		app.post("/sendFriendRequest", function (request, result) {
@@ -1394,6 +1408,127 @@ http.listen(3000, function () {
 							"posts":posts
 						});
 					});
+				}
+			});
+		});
+		app.post("/toggleLikePage", function(request, result){
+			var accessToken = request.fields.accessToken;
+			var _id = request.fields._id;
+
+			database.collection("users").findOne({
+				"accessToken": accessToken
+			}, 
+			function (error, user) {
+				if (user == null) {
+					result.json({
+						"status": "error",
+						"message": "User has been logged out. Please login again."
+					});
+				}
+				else{
+					database.collection("pages").findOne({
+						"_id":ObjectId(_id)
+					}, function(error, page){
+						if(page == null){
+							result.json({
+								"status":"error",
+								"message":"Page does not exits."
+							});
+						}
+						else{
+							var isLiked = false;
+							for (var a =0; a< page.likers.length;a++){
+								var liker = page.likers[a];
+								if(liker._id.toString() == user._id.toString()){
+									isLiked = true;
+									break;
+								}
+							}
+							if(isLiked){
+								database.collection("pages").updateOne({
+									"_id": ObjectId(_id)
+								},{
+									$pull:{
+										"likers":{
+											"_id":user._id
+										}
+									}
+								}, function (error, data){
+									database.collection("users").updateOne({
+										"accessToken": accessToken
+									},{
+										$pull:{
+											"pages":{
+												"_id": ObjectId(_id)
+											}
+										}
+									}, function(error, data){
+										result.json({
+											"status":"unliked",
+											"message":"Page has been unliked."
+										});
+									});
+								});
+							}
+							else{
+								database.collection("pages").updateOne({
+									"_id": ObjectId(_id)
+								},{
+									$push:{
+										"likers":{
+											'_id': user._id,
+											"name":user.name,
+											"profileImage": user.profileImage
+										}
+									}
+								}, function (error, data){
+									database.collection("users").updateOne({
+										"accessToken": accessToken
+									},{
+										$push:{
+											"pages":{
+												"_id": page._id,
+												"name": page.name,
+												"coverPhoto":page.coverPhoto
+											}
+										}
+									}, function(error, data){
+										result.json({
+											"status":"success",
+											"message":"Page has been unliked."
+										});
+									});
+								});
+							}
+						}
+					});
+				}
+			});
+				
+		});
+		app.post("/getMyPages", function (request, result){
+			var accessToken = request.fields.accessToken;
+
+			database.collection("users").findOne({
+				"accessToken": accessToken
+			}, 
+			function (error, user) {
+				if (user == null) {
+					result.json({
+						"status": "error",
+						"message": "User has been logged out. Please login again."
+					});
+				}
+				else{
+					database.collection("pages").find({
+						"user._id":user._id
+					}).toArray(function (error, data){
+						result.json({
+							"status":"success",
+							"message":"Record has been fetched.",
+							"data": data
+						});
+					})
 				}
 			});
 		});
