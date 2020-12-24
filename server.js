@@ -13,6 +13,7 @@ var bcrypt = require("bcrypt");
 var fileSystem = require("fs");
 
 var jwt = require("jsonwebtoken");
+const { group } = require("console");
 var accessTokenSecret = "myAccessTokenSecret1234567890";
 
 app.use("/public", express.static(__dirname + "/public"));
@@ -406,6 +407,63 @@ http.listen(3000, function () {
 										"_id": page._id,
 										"name":page.name,
 										"profileImage": page.coverPhoto
+									}
+								}, function (error, data){
+									result.json({
+										"status":"success",
+										"message":"Post has been uploaded."
+									});
+								});
+							}
+						});
+					}
+					// add type for grouppost
+					else if(type == "group_post"){
+						database.collection("groups").findOne({
+							"_id":ObjectId(_id)
+						}, function(error, group){
+							if(group==null){
+								result.json({
+									"status":"error",
+									"message":"Group does not exist."
+								});
+								return;
+							}
+							else{
+								var isMember = false
+								for(var a=0; a < group.members.length; a++){
+									var member = group.members[a];
+
+									if(member._id.toString() == user._id.toString()){
+										isMember = true;
+										break;
+									}
+								}
+								if(!isMember){
+									result.json({
+										"status":"error",
+										"message":"Sorry, you are not a member of this group"
+									});
+									return;
+								}
+								database.collection("posts").insertOne({
+									"caption":caption,
+									"image":image,
+									"video": video,
+									"type":type,
+									"createdAt": createdAt,
+									"likers":[],
+									"comments":[],
+									"shares":[],
+									"user":{
+										"_id": group._id,
+										"name": group.name,
+										"profileImage": group.coverPhoto
+									},
+									"uploader":{
+										"_id":user._id,
+										"name": user.name,
+										"profileImage": user.coverPhoto
 									}
 								}, function (error, data){
 									result.json({
@@ -1046,7 +1104,7 @@ http.listen(3000, function () {
 									"notifications": {
 										"_id": ObjectId(),
 										"type": "friend request accepted",
-										"content": me.name + "accept your friend request.",
+										"content": me.name + " accept your friend request.",
 										"profileImage": me.profileImage,
 										"createdAt": new Date().getTime()
 									}
@@ -1535,7 +1593,158 @@ http.listen(3000, function () {
 		app.get("/groups", function (request, result) {
 			result.render("groups");
 		});
+		app.get("/createGroup", function (request, result) {
+			result.render("createGroup");
+		});
+		app.post("/createGroup", function (request, result){
+			var accessToken = request.fields.accessToken;
+			var name = request.fields.name;
+			var additionalInfo = request.fields.additionalInfo;
+			var coverPhoto ="";
 
+			database.collection("users").findOne({
+				"accessToken": accessToken
+			}, 
+			function (error, user) {
+				if (user == null) {
+					result.json({
+						"status": "error",
+						"message": "User has been logged out. Please login again."
+					});
+				}
+				else{
+					if (request.files.coverPhoto.size > 0 && request.files.coverPhoto.type.includes("image")) {
+						coverPhoto = "public/images/" + new Date().getTime() + "-" + request.files.coverPhoto.name;
+						fileSystem.rename(request.files.coverPhoto.path, coverPhoto, function (error) {
+							//
+						});
+
+						database.collection("groups").insertOne({
+							"name": name,
+							"additionalInfo": additionalInfo,
+							"coverPhoto": coverPhoto,
+							"members":[{
+								"_id":user._id,
+								"name":user.name,
+								"profileImage":user.profileImage,
+								"status":"Accepted"
+							}],
+							"user":{
+								"_id":user._id,
+								"name": user.name,
+								"profileImage":user.profileImage
+							}
+
+						}, function (error, data){
+							database.collection("users").updateOne({
+								"accessToken": accessToken
+							
+						},
+						{
+								$push:{
+									"groups":{
+										"_id": data.insertedId,
+										"name": name,
+										"coverPhoto": coverPhoto,
+										"status":"Accepted"
+									}
+								}
+							}, function (error, data){
+								result.json({
+									"status":"success",
+									"message":"Group has been created."
+								});
+							});
+						});
+					}
+					else{
+						result.json({
+							"status":"error",
+							"message": "Please selct a cover photo."
+						});
+					}
+				}
+			});
+
+		});
+		app.post("/getGroups", function (request, result){
+			var accessToken = request.fields.accessToken;
+
+			database.collection("users").findOne({
+				"accessToken": accessToken
+			}, 
+			function (error, user) {
+				if (user == null) {
+					result.json({
+						"status": "error",
+						"message": "User has been logged out. Please login again."
+					});
+				}
+				else{
+					database.collection("groups").find({
+						$or:[{
+							"user._id": user._id
+						},{
+							"members._id":user._id
+						}]
+					}).toArray(function(error, data){
+						result.json({
+							"status":"success",
+							"message":"Record has been fetched.",
+							"data": data
+						});
+					});
+				}
+			});
+		});
+		app.get("/group/:_id", function (request, result) {
+			var _id = request.params._id;
+			database.collection("groups").findOne({
+				"_id": ObjectId(_id)
+			}, function (error, group) {
+				if (group == null) {
+					result.json({
+						"status": "error",
+						"message": "Group does not exists"
+					});
+				} else {
+					result.render("singleGroup", {
+						"_id": _id
+					});
+				}
+			});
+		});
+		app.post("/getGroupDetail", function(request, result){
+			var _id = request.fields._id;
+			database.collection("groups").findOne({
+				"_id": ObjectId(_id)
+			}, function (error, group) {
+				if (group == null) {
+					result.json({
+						"status": "error",
+						"message": "Group does not exists"
+					});
+				} else{
+					database.collection("posts").find({
+						$and:[{
+							"user._id": group._id
+						},{
+							"type":"group_post"
+						}]
+					}).toArray(function (error, posts){
+						result.json({
+							"status":"success",
+							"message":"Record has been fetched.",
+							"data":group,
+							"posts":posts
+						});
+					});
+				}
+			});
+		});
+		app.post("/toggleJoinGroup", function (request, result) {
+
+		});
 		app.get("/notifications", function (request, result) {
 			result.render("notifications");
 		});
@@ -1596,9 +1805,7 @@ http.listen(3000, function () {
 
 
 
-		app.post("/toggleJoinGroup", function (request, result) {
-
-		});
+		
 
 		
 	});

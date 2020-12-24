@@ -1,11 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 .theme-layout.signup-bg{
-    background-image: url(/public/img/juanmi-navarro-10Uolm7mPtc-unsplash.jpg);
+    /* background-image: url(/public/img/juanmi-navarro-10Uolm7mPtc-unsplash.jpg); */
     background-position: center;
     background-size: cover;
 }
 .login-reg-bg {
-    background: rgba(0,0,0,0.1) none repeat scroll 0 0;
     
+    /* background-position: center;
+    background-size: cover;
+    background-image: url("../../public/img/cat.jpg"), linear-gradient(#12054d, #040111); */
+    background-image:
+    linear-gradient(to bottom, rgba(200, 202, 214, 0.3), rgba(24, 2, 61, 0.6)),
+    url("../../public/img/cat.jpg");
+    background-size: cover;
+
     float: left;
     height: 100vh;
     position: relative;
@@ -15,6 +23,8 @@
     background: #fff none repeat scroll 0 0;
     background: linear-gradient(rgb(206, 208, 218), rgb(230, 234, 236) 65%);
     box-shadow: 0 0 35px #e2e2e2;
+    box-shadow: none;
+    border-radius: 5px;
     display: block;
     float: none;
     left: 50%;
@@ -39,4 +49,27 @@
 .sign-up-form a.signup-link {
     color: #fff;
     font-size: 16px !important;
+}
+.land-featurearea {
+    background: #1fb6ff none repeat scroll 0 0;
+    /* background: rgba(31, 182, 255, 0.8); */
+    color: #fff;
+    background: rgba(222, 224, 235, 0.5);
+    color: #1fb6ff;
+    float: left;
+    height: 100vh;
+    position: relative;
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+}
+.land-featurearea .land-meta h1{
+    text-transform: uppercase;
+    font-size: 40px;
+    font-weight: 900;
+    letter-spacing: 2px;
+
+}
+.log-reg-area .label-login{
+    color: #1fb6ff;
 }

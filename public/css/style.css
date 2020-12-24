@@ -245,7 +245,7 @@ section {
 }
 
 .pattern:before {
-    background: #088dcd url("../images/dot-pattern.png") repeat scroll 0 0;
+    
     opacity: 0.45;
 }
 
@@ -496,7 +496,10 @@ header.sticky {
 
 .land-featurearea {
     background: #1fb6ff none repeat scroll 0 0;
+    /* background: rgba(31, 182, 255, 0.8); */
     color: #fff;
+    background: rgba(178, 189, 238,0.5);
+    color: #1fb6ff;
     float: left;
     height: 100vh;
     position: relative;
@@ -519,6 +522,7 @@ header.sticky {
 .land-meta > p {
     color: #fff;
     letter-spacing: 0.5px;
+    color: #00bff3;
 }
 
 .log-reg-area > p {
@@ -537,7 +541,7 @@ header.sticky {
     position: relative;
 }
 
-.friend-logo > span::before,
+/* .friend-logo > span::before,
 .friend-logo > span::after {
     background: #0a98dc none repeat scroll 0 0;
     border: 16px solid rgba(255, 255, 255, 0.1);
@@ -549,7 +553,7 @@ header.sticky {
     top: 20px;
     width: 180px;
     z-index: -1;
-}
+} */
 
 .land-meta > a.folow-me:hover {
     text-shadow: 0 1px 1px #454545;

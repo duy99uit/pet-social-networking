@@ -153,6 +153,12 @@
 						if (typeof isRightSidebar !== "undefined" && isRightSidebar) {
 							getMyPages();
 						}
+						if (typeof isGroups !== "undefined" && isGroups) {
+							getGroups();
+						}
+						if (typeof isGroupDetail !== "undefined" && isGroupDetail) {
+							getGroupDetail();
+						}
 						if (typeof isNotifications !== "undefined" && isNotifications) {
 							showNotifications();
 							markNotificationsAsRead();
@@ -204,7 +210,16 @@
 
 			html += '<li>';
 			html += '<a href="/groups">Groups</a> ';
+			html += '<ul>';
+			html += '<li>';
+			html += '<a href="/createGroup">Create Group</a> ';
 
+			html += '</li>';
+			html += '<li>';
+			html += '<a href="/groups">Groups</a> ';
+
+			html += '</li>';
+			html += '</ul>';
 			html += '</li>';
 
 			html += '<li>';
