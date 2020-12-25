@@ -1793,41 +1793,51 @@ http.listen(3000, function () {
 									}
 								}
 								if (isMember) {
-									database.collection("groups").updateOne({
-										"_id": ObjectId(_id)
-									}, {
-										$pull: {
-											"members": {
-												"_id": user._id
-											}
-										}
-									}, function (error, data) {
-										database.collection("users").updateOne({
-											"accessToken": accessToken
+									if (group.user._id.toString() == user._id.toString()) {
+										result.json({
+											"status": "error",
+											"message": "Oops, You are an admin of this group. You can't leave"
+										});
+										return;
+									}
+									else{
+										database.collection("groups").updateOne({
+											"_id": ObjectId(_id)
 										}, {
 											$pull: {
-												"groups": {
-													"_id": ObjectId(_id)
+												"members": {
+													"_id": user._id
 												}
 											}
 										}, function (error, data) {
 											database.collection("users").updateOne({
-												"_id": group.user._id
+												"accessToken": accessToken
 											}, {
 												$pull: {
-													"notifications": {
-														"groupId": group._id
+													"groups": {
+														"_id": ObjectId(_id)
 													}
 												}
-											}
-												, function (error, data) {
-													result.json({
-														"status": "leaved",
-														"message": "Group has been left."
+											}, function (error, data) {
+												database.collection("users").updateOne({
+													"_id": group.user._id
+												}, {
+													$pull: {
+														"notifications": {
+															"groupId": group._id
+														}
+													}
+												}
+													, function (error, data) {
+														result.json({
+															"status": "leaved",
+															"message": "Group has been left."
+														});
 													});
-												});
+											});
 										});
-									});
+									}
+									
 								}
 								else {
 									database.collection("groups").updateOne({
