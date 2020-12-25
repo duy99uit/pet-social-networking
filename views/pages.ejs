@@ -63,9 +63,9 @@
 						html += '</a>';
 						html += '<em>' + data.likers.length + ' likers</em>';
 						html += '</figure>';
-						html += '<div class ="page-info">';
+						html += '<div class ="page-info" style="text-overflow: ellipsis; height: 60px; width: 100%;  overflow: hidden;">';
 						html += '<h5><a href="/page/' + data._id + '">' + data.name + '</a></h5>';
-						html += '<span>' + data.additionalInfo + '</span>';
+						html += '<span >' + data.additionalInfo + '</span>';
 						html += '</div>';
 						html += '</div>';
 						html += '</li>';

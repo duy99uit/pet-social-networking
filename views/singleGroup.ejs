@@ -2,11 +2,11 @@
     <section>
         <div class="feature-photo">
             <figure>
-                <img id="group-cover-photo" >
+                <img id="group-cover-photo">
             </figure>
             <div class="add-btn">
                 <span id="group-members"></span>
-                
+
             </div>
 
             <div class="container-fluid">
@@ -71,6 +71,58 @@
                     if (isMember) {
                         showAddPost();
                     }
+                    // show all Post
+                    var html = "";
+                    response.posts = response.posts.reverse();
+                    for (var a = 0; a < response.posts.length; a++) {
+                        var data = response.posts[a];
+                        console.log(data.createdAt);
+
+                        html += '<div class="central-meta item">';
+                        html += '<div class="user-post">';
+                        html += '<div class="friend-info">';
+                        html += '<figure>';
+                        html += '<img src="' + mainURL + "/" + data.uploader.profileImage + '">';
+                        html += '</figure>';
+                        //Time and Name
+                        html += '<div class="friend-name">';
+                        html += '<ins>';
+                        html += '<a href="/user' + data.uploader._id + '">';
+                        html += data.uploader.name;
+                        html += '</a>';
+                        html += '</ins>';
+                        var createdAt = new Date(data.createdAt);
+                        console.log(createdAt);
+                        var date = createdAt.getDate() + "";
+                        date = date.padStart(2, "0") + " " + months[createdAt.getMonth()] + ", " + createdAt.getFullYear();
+                        // var createdAt = new Date(data.createdAt);
+                        // var date = createdAt.getDate() + "";
+                        // date = date.padStart(2, "0") + " " + months[createdAt.getMonth()] + ", " + createdAt.getFullYear();
+
+                        html += '<span>Published: ' + date + '</span>';
+                        html += '</div>';
+
+                        html += '<div class="post-meta">';
+                        html += '<div class="description">';
+                        html += '<p>';
+                        html += data.caption;
+                        html += '</p>';
+                        html += '</div>';
+                        if (data.image != "") {
+                            html += '<img src="' + mainURL + "/" + data.image + '">';
+                        }
+                        if (data.video != "") {
+                            html += '<video style="height: 359px; width: 100%;" controls src="' + mainURL + "/" + data.image + '"></video>';
+
+                        }
+                        html += createLikesSection(data);
+                        html += '</div>';
+                        html += '</div>';
+                        html += createCommentsSection(data);
+                        html += '</div>';
+                        html += '</div>';
+                    }
+                    document.getElementById("newsfeed").innerHTML = html;
                 }
             };
             var formData = new FormData();
@@ -110,29 +162,29 @@
             return false;
         }
         function toggleLikePage(self) {
-			var ajax = new XMLHttpRequest();
-			ajax.open("POST", "/toggleLikePage", true);
+            var ajax = new XMLHttpRequest();
+            ajax.open("POST", "/toggleLikePage", true);
 
-			ajax.onreadystatechange = function () {
-				if (this.readyState == 4 && this.status == 200) {
-					var response = JSON.parse(this.responseText);
+            ajax.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var response = JSON.parse(this.responseText);
 
-					if (response.status == "success") {
-						document.getElementById("btn-toggle-like").innerHTML = "Unlike";
-					}
-					if (response.status == "unliked") {
-						document.getElementById("btn-toggle-like").innerHTML = "Like";
-					}
-					if (response.status == "error") {
-						alert(response.message);
-					}
-				}
-			};
-			var formData = new FormData();
+                    if (response.status == "success") {
+                        document.getElementById("btn-toggle-like").innerHTML = "Unlike";
+                    }
+                    if (response.status == "unliked") {
+                        document.getElementById("btn-toggle-like").innerHTML = "Like";
+                    }
+                    if (response.status == "error") {
+                        alert(response.message);
+                    }
+                }
+            };
+            var formData = new FormData();
             formData.append("accessToken", localStorage.getItem("accessToken"));
             formData.append("_id", document.getElementById("_id").value);
             ajax.send(formData);
-		}
+        }
     </script>
 
     <%- include ("includes/footer") %>
