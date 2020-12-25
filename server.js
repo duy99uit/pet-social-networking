@@ -1876,6 +1876,7 @@ http.listen(3000, function () {
 														"groupId": group._id,
 														"userId": user._id,
 														"status": "Pending",
+														"isRead": false,
 														"createdAt": new Date().getTime()
 													}
 												}
