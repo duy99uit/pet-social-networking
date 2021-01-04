@@ -1,8 +1,8 @@
 <%- include ("includes/header") %>
 
 <section>
-	<div class="gap gray-bg">
-		<div class="container-fluid">
+	<div class="gap gray-bg" >
+		<div class="container-fluid" style="padding-top: 20px;">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="row" id="page-contents">
@@ -82,7 +82,7 @@
 							html += '<div class="friend-info">';
 
 								html += '<figure>';
-									html += '<img src="' + mainURL + "/" + data.user.profileImage + '" style="width: 45px; height: 45px; object-fit: cover;">';
+									html += '<img src="' + mainURL + "/" + data.user.profileImage + '" style="width: 45px; height: 45px; object-fit: cover; border-radius: 50%">';
 								html += '</figure>';
 
 								html += '<div class="friend-name">';
@@ -93,9 +93,21 @@
 												html += data.user.name;
 											html += '</a>';
 										}
-										else
+										// else
+										// {
+										// 	html += data.user.name;
+										// }
+										else if (data.type == "page_post")
 										{
-											html += data.user.name;
+											html += '<a href="/page/' + data.user._id + '"> Page >> ';
+												html += data.user.name;
+											html += '</a>';
+										}
+										else if (data.type == "group_post")
+										{
+											html += '<a href="/group/' + data.user._id + '"> Group >> ';
+												html += data.user.name;
+											html += '</a>';
 										}
 									html += '</ins>';
 

@@ -88,3 +88,25 @@
     background-color: rgb(10, 204, 123);
     transform: translateX(10px);
 }
+.top-area > ul.main-menu > li a {
+    color: #575b5f;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: capitalize;
+    letter-spacing: 0.3px;
+}
+.top-area > ul.main-menu > li a i{
+    color: #575b5f;
+    
+}
+.top-area > ul.main-menu > li:hover a {
+    color: #088dcd;
+    /* font-size: 14px;
+    font-weight: 700;
+    text-transform: capitalize;
+    letter-spacing: 0.3px; */
+}
+.top-area > ul.main-menu > li:hover a i{
+    color: #088dcd;
+    
+}

@@ -153,6 +153,7 @@ http.listen(3000, function () {
 				}
 			});
 		});
+		
 
 		app.get("/updateProfile", function (request, result) {
 			result.render("updateProfile");
@@ -292,6 +293,7 @@ http.listen(3000, function () {
 			var city = request.fields.city;
 			var country = request.fields.country;
 			var aboutMe = request.fields.aboutMe;
+			var job = request.fields.job;
 
 			database.collection("users").findOne({
 				"accessToken": accessToken
@@ -310,7 +312,8 @@ http.listen(3000, function () {
 							"dob": dob,
 							"city": city,
 							"country": country,
-							"aboutMe": aboutMe
+							"aboutMe": aboutMe,
+							"job": job
 						}
 					}, function (error, data) {
 						result.json({
@@ -466,6 +469,7 @@ http.listen(3000, function () {
 									"uploader": {
 										"_id": user._id,
 										"name": user.name,
+										"username": user.username,
 										"profileImage": user.coverPhoto
 									}
 								}, function (error, data) {
@@ -1029,14 +1033,20 @@ http.listen(3000, function () {
 
 		app.get("/search/:query", function (request, result) {
 			var query = request.params.query;
-			result.render("search", {
-				"query": query
-			});
+			if(query == ""){
+				result.render("index");
+			}
+			else{
+				result.render("search", {
+					"query": query
+				});
+			}
+			
 		});
 
 		app.post("/search", function (request, result) {
 			var query = request.fields.query;
-			if(query == null){
+			if(query == ""){
 				console.log(query);
 				result.json({
 					"status": "error",
@@ -2153,7 +2163,10 @@ http.listen(3000, function () {
 
 
 
-
+		////
+		app.get("/contact", function (request, result) {
+			result.render("contact");
+		});
 
 
 

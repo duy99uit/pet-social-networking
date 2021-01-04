@@ -4,7 +4,7 @@
 	<div class="feature-photo">
 
 		<figure>
-			<img class="cover-photo" id="cover-photo" style="width: 100%; height: 700px; object-fit: cover;">
+			<img class="cover-photo" id="cover-photo" style="width: 100%; height: 450px; object-fit: cover;">
 		</figure>
 
 		<form class="edit-phto" id="form-cover-photo" onsubmit="return false;">
@@ -18,7 +18,7 @@
 		<div class="container-fluid">
 			<div class="row merged">
 				<div class="col-md-2">
-					<div class="user-avatar">
+					<div class="user-avatar" style="margin-top: -90px;">
 						<figure>
 
 							<img class="profile-image" id="profile-image" style="width: 100%; height: 150px; object-fit: cover;">
@@ -38,6 +38,7 @@
 						<ul>
 							<li class="admin-name">
 								<h5 class="user-name" style="padding-top: 20px; padding-bottom: 20px;"></h5>
+								<span class="user-job" style="font-size: 12px; margin-top: 10px;"></span>
 							</li>
 						</ul>
 					</div>
@@ -53,6 +54,7 @@
 	function showProfileData() {
 		document.querySelector(".cover-photo").setAttribute("src", mainURL + "/" + window.user.coverPhoto);
 		document.querySelector(".profile-image").setAttribute("src", mainURL + "/" + window.user.profileImage);
+		document.querySelector(".user-job").innerHTML = window.user.job;
 
 		document.querySelector(".user-name").innerHTML = window.user.name;
 		document.querySelector(".name").value = window.user.name;
@@ -166,6 +168,14 @@
 										<div class="form-group">
 											<input class="email" />
 											<label class="control-label">Email</label>
+											<i class="mtrl-select"></i>
+										</div>
+
+										<br><br>
+
+										<div class="form-group">
+											<input type="text" class="dob" name="job" placeholder="Yout job" />
+											<label class="control-label">Job</label>
 											<i class="mtrl-select"></i>
 										</div>
 

@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="/public/css/style.css">
 	<link rel="stylesheet" href="/public/css/color.css">
 	<link rel="stylesheet" href="/public/css/responsive.css">
+	<link rel="stylesheet" href="/public/css/font-awesome.css">
 	<link rel="shortcut icon" type="image/png" href="/public/img/pety-logo.ico" />
 </head>
 
@@ -65,7 +66,15 @@
 			var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 			function onSearch(button) {
-				window.location.href = "/search/" + button.previousElementSibling.value;
+				if(button.previousElementSibling.value == "" || button.previousElementSibling.value == "." ){
+					window.alert("Please input keyword");
+					console.log("null")
+					
+				}
+				else{
+					window.location.href = "/search/" + button.previousElementSibling.value;
+				}
+				
 			}
 
 			function createLikesSection(data) {
@@ -202,7 +211,7 @@
 
 						html += '<li>';
 							html += '<div class="comet-avatar">';
-								html += '<img src="' + mainURL + '/' + comment.user.profileImage + '">';
+								html += '<img src="' + mainURL + '/' + comment.user.profileImage + '" style="width: 35px; height: 35px; object-fit: cover; border-radius: 50%">';
 							html += '</div>';
 
 							html += '<div class="we-comment">';
@@ -229,7 +238,7 @@
 
 									html += '<li>';
 										html += '<div class="comet-avatar">';
-											html += '<img src="' + mainURL + '/' + reply.user.profileImage + '">';
+											html += '<img src="' + mainURL + '/' + reply.user.profileImage + '" style="width: 35px; height: 35px; object-fit: cover; border-radius: 50%">';
 										html += '</div>';
 
 										html += '<div class="we-comment">';
@@ -252,10 +261,10 @@
 					}
 					html += '</ul>';
 
-					html += '<ul class="we-comet">';
+					html += '<ul class="we-comet" style="border: 0.5px solid  #575b5f; padding: 3px">';
 						html += '<li class="post-comment">';
 							html += '<div class="comet-avatar">';
-								html += '<img src="' + mainURL + '/' + window.user.profileImage + '">';
+								html += '<img src="' + mainURL + '/' + window.user.profileImage + '" style="width: 60px; height:40px; object-fit: cover; border-radius: 10px">';
 							html += '</div>';
 							html += '<div class="post-comt-box">';
 								html += '<form method="post" onsubmit="return doPostComment(this);">';
@@ -343,14 +352,14 @@
 					html += '<div class="central-meta">';
 						html += '<div class="new-postbox">';
 							html += '<figure>';
-								html += '<img src="' + mainURL + '/' + window.user.profileImage + '">';
+								html += '<img src="' + mainURL + '/' + window.user.profileImage + '" style="width: 55px; height: 55px; object-fit: cover; border-radius: 50%">';
 							html += '</figure>';
 
 							html += '<div class="newpst-input">';
 								html += '<form method="post" id="form-add-post" onsubmit="return doPost(this);">';
 
 									html += '<input name="type" type="hidden" value="post">';
-									html += '<textarea rows="2" name="caption" placeholder="write something"></textarea>';
+									html += '<textarea rows="2" name="caption" placeholder="Write something"></textarea>';
 									html += '<div class="attachments">';
 										html += '<ul>';
 
@@ -423,7 +432,7 @@
 			#post-img-preview,
 			#post-video-preview {
 				height: 300px;
-				width: 300px;
+				width: 100%;
 				object-fit: cover;
 			}
 		</style>

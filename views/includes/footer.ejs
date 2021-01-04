@@ -37,11 +37,11 @@
 				<div class="widget">
 					<div class="widget-title"><h4>Navigate</h4></div>
 					<ul class="list-style">
-						<li><a href="about.html" title="">about us</a></li>
-						<li><a href="contact.html" title="">contact us</a></li>
-						<li><a href="terms.html" title="">terms & Conditions</a></li>
+						<li><a href="#" title="">about us</a></li>
+						<li><a href="/contact" title="">contact us</a></li>
+						<li><a href="#" title="">terms & Conditions</a></li>
 						<li><a href="#" title="">RSS syndication</a></li>
-						<li><a href="sitemap.html" title="">Sitemap</a></li>
+						<li><a href="#" title="">Sitemap</a></li>
 					</ul>
 				</div>
 			</div>
@@ -137,6 +137,10 @@
 							
 							showTimeline();
 						}
+						if (typeof isTimelineUser !== "undefined" && isTimelineUser) {
+							
+							showTimelineUser();
+						}
 
 						if (typeof isSearchResults !== "undefined" && isSearchResults) {
 							showSearchResults();
@@ -201,7 +205,7 @@
 
 		if (localStorage.getItem("accessToken")) {
 			html += '<li>';
-			html += '<a href="/pages">Pages</a> ';
+			html += '<a href="/pages"><i class="fa fa-th-large" aria-hidden="true" style="margin-right: 3px; "></i>Pages</a> ';
 			html += '<ul>';
 			html += '<li>';
 			html += '<a href="/createPage">Create Page</a> ';
@@ -216,7 +220,7 @@
 			html += '</li>';
 
 			html += '<li>';
-			html += '<a href="/groups">Groups</a> ';
+			html += '<a href="/groups"><i class="fa fa-users" aria-hidden="true" style="margin-right: 3px; "></i>Groups</a> ';
 			html += '<ul>';
 			html += '<li>';
 			html += '<a href="/createGroup">Create Group</a> ';
@@ -230,14 +234,14 @@
 			html += '</li>';
 
 			html += '<li>';
-			html += '<a href="/updateProfile">Profile</a>';
+			html += '<a href="/updateProfile"><i class="fa fa-user" aria-hidden="true" style="margin-right: 3px; "></i>Profile</a>';
 			html += '<ul>';
 			html += '<li>';
 			html += '<a href="/updateProfile">Update Profile</a> ';
 
 			html += '</li>';
 			html += '<li>';
-			html += '<a href="/timeline">Timeline</a> ';
+			html += '<a href="/timeline">Your Timeline</a> ';
 
 			html += '</li>';
 			html += '</ul>';
