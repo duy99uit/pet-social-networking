@@ -1036,38 +1036,48 @@ http.listen(3000, function () {
 
 		app.post("/search", function (request, result) {
 			var query = request.fields.query;
-			database.collection("users").find({
-				"name": {
-					$regex: ".*" + query + ".*",
-					$options: "i"
-				}
-			}).toArray(function (error, data) {
-				//search for group
-				database.collection("pages").find({
+			if(query == null){
+				console.log(query);
+				result.json({
+					"status": "error",
+					"message": "Please type keyword"
+				});
+			}
+			else{
+				database.collection("users").find({
 					"name": {
 						$regex: ".*" + query + ".*",
 						$options: "i"
 					}
-				}).toArray(function (error, pages) {
-					//search group
-					database.collection("groups").find({
+				}).toArray(function (error, data) {
+					//search for group
+					database.collection("pages").find({
 						"name": {
 							$regex: ".*" + query + ".*",
 							$options: "i"
 						}
-					}).toArray(function (error, groups) {
-						result.json({
-							"status": "success",
-							"message": "Record has been fetched",
-							"data": data,
-							"pages": pages,
-							"groups": groups
+					}).toArray(function (error, pages) {
+						//search group
+						database.collection("groups").find({
+							"name": {
+								$regex: ".*" + query + ".*",
+								$options: "i"
+							}
+						}).toArray(function (error, groups) {
+							result.json({
+								"status": "success",
+								"message": "Record has been fetched",
+								"data": data,
+								"pages": pages,
+								"groups": groups
+							});
 						});
+	
 					});
-
+	
 				});
+			}
 
-			});
 		});
 		app.post("/sendFriendRequest", function (request, result) {
 			var accessToken = request.fields.accessToken;
