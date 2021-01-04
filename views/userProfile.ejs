@@ -4,13 +4,13 @@
 	<div class="feature-photo">
 
 		<figure>
-			<img class="cover-photo" id="cover-photo" style="width: 100%; height: 700px; object-fit: cover;" src="<%= mainURL + "/" + user.coverPhoto %>">
+			<img class="cover-photo" id="cover-photo" style="width: 100%; height: 450px; object-fit: cover;" src="<%= mainURL + "/" + user.coverPhoto %>">
 		</figure>
 
 		<div class="container-fluid">
 			<div class="row merged">
 				<div class="col-md-2">
-					<div class="user-avatar">
+					<div class="user-avatar" style="margin-top: -90px;">
 						<figure>
 
 							<img class="profile-image" id="profile-image" style="width: 100%; height: 150px; object-fit: cover;" src="<%= mainURL + "/" + user.profileImage %>">
@@ -23,7 +23,8 @@
 							<li class="admin-name">
 								<h5 class="user-name" style="padding-top: 20px; padding-bottom: 20px;">
                                     <%= user.name %>
-                                </h5>
+								</h5>
+								<span class="user-job" style="font-size: 12px; margin-top: 10px;"><%= user.job %></span>
 							</li>
 						</ul>
 					</div>
@@ -48,7 +49,7 @@
 							<div class="timeline-info">
 								<ul class="nav nav-tabs">
 									<li>
-										<a class="active" data-toggle="tab" href="#allpost">User Info</a>
+										<a class="active" data-toggle="tab" href="#userinfo">User Info</a>
 										<a data-toggle="tab" href="#allpost">Posts</a>
 										<a data-toggle="tab" href="#images">Images</a>
 										<a data-toggle="tab" href="#videos">Videos</a>
@@ -64,7 +65,7 @@
 											<div class="loadMore" id="user-info">
 
 											</div> -->
-											<div class="central-meta" id="#userinfo">
+											<div class="central-meta" id="userinfo">
 												<div class="editing-info">
 				
 													<h5 class="f-title">
@@ -79,6 +80,10 @@
 				
 													<h3>Email</h3>
 													<p><%= user.email %></p>
+				
+													<br><br>
+													<h3>Job</h3>
+													<p><%= user.job %></p>
 				
 													<br><br>
 				
