@@ -157,6 +157,9 @@ http.listen(3000, function () {
 		app.get("/updateProfile", function (request, result) {
 			result.render("updateProfile");
 		});
+		app.get("/timeline", function (request, result) {
+			result.render("timeline");
+		});
 
 		app.post("/getUser", function (request, result) {
 			var accessToken = request.fields.accessToken;
@@ -551,6 +554,45 @@ http.listen(3000, function () {
 					for (var a = 0; a < user.friends.length; a++) {
 						ids.push(user.friends[a]._id);
 					}
+
+					database.collection("posts")
+						.find({
+							"user._id": {
+								$in: ids
+							}
+						})
+						.sort({
+							"createdAt": -1
+						})
+						.limit(5)
+						.toArray(function (error, data) {
+
+							result.json({
+								"status": "success",
+								"message": "Record has been fetched",
+								"data": data
+							});
+						});
+				}
+			});
+		});
+
+		app.post("/getTimeline", function (request, result) {
+			var accessToken = request.fields.accessToken;
+			database.collection("users").findOne({
+				"accessToken": accessToken
+			}, function (error, user) {
+				if (user == null) {
+					result.json({
+						"status": "error",
+						"message": "User has been logged out. Please login again."
+					});
+				} else {
+
+					var ids = [];
+					ids.push(user._id);
+
+					
 
 					database.collection("posts")
 						.find({
@@ -1126,6 +1168,7 @@ http.listen(3000, function () {
 										"type": "friend request accepted",
 										"content": me.name + " accept your friend request.",
 										"profileImage": me.profileImage,
+										"isRead": true,
 										"createdAt": new Date().getTime()
 									}
 

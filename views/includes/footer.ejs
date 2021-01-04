@@ -133,6 +133,10 @@
 							showAddPost();
 							showNewsfeed();
 						}
+						if (typeof isTimeline !== "undefined" && isTimeline) {
+							
+							showTimeline();
+						}
 
 						if (typeof isSearchResults !== "undefined" && isSearchResults) {
 							showSearchResults();
@@ -233,7 +237,7 @@
 
 			html += '</li>';
 			html += '<li>';
-			html += '<a href="/">Timeline</a> ';
+			html += '<a href="/timeline">Timeline</a> ';
 
 			html += '</li>';
 			html += '</ul>';
