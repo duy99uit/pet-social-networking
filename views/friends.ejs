@@ -55,17 +55,17 @@
 				html += '<div class ="nearly-pepls">';
 				html += '<figure>';
 				html += '<a href="/">';
-				html += '<img src="' + mainURL + '/' + data.profileImage + '">';
+				html += '<img src="' + mainURL + '/' + data.profileImage + '" style="width: 45px; height: 45px; object-fit: cover; border-radius: 50%;">';
 				html += '</a>';
 				html += '</figure>';
 				html += '<div class="pepl-info">';
 				html += '<h4>';
-				html += '<a href="/user/' + data.username + '">' + data.name + '</a>';
+				html += '<a href="/user/' + data.username + '" style="color: #088dcd;">' + data.name + '</a>';
 				html += '</h4>';
 				if (!data.sendByMe && data.status == "Pending") {
-					html += '<a href="javascript:void(0);" data-id="' + data._id + '" onclick="doAccept(this)"; class="add-butn more-action">Accept</a>';
+					html += '<a href="javascript:void(0);" data-id="' + data._id + '" onclick="doAccept(this)"; class="add-butn more-action" style="border-radius: 3px;">Accept</a>';
 				}
-				html += '<a href="javascript:void(0);" data-id="' + data._id + '" onclick="doUnfriend(this)"; class="add-butn btn-unfriend">Unfriend</a>';
+				html += '<a href="javascript:void(0);" data-id="' + data._id + '" onclick="doUnfriend(this)"; class="add-butn btn-unfriend" style="border-radius: 3px;">Unfriend</a>';
 				html += '</div>';
 				html += '</div>';
 				html += '</li>';

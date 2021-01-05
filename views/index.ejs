@@ -9,6 +9,7 @@
 
 						<div class="col-md-3">
 							<%- include ("includes/left-sidebar") %>
+							<%- include ("includes/social-link") %>
 						</div>
 
 						<div class="col-md-6">
@@ -22,6 +23,7 @@
 
 						<div class="col-md-3">
 							<%- include ("includes/right-sidebar") %>
+							<%- include ("includes/friends-widget") %>
 						</div>
 					</div>
 				</div>
@@ -82,7 +84,7 @@
 							html += '<div class="friend-info">';
 
 								html += '<figure>';
-									html += '<img src="' + mainURL + "/" + data.user.profileImage + '" style="width: 45px; height: 45px; object-fit: cover; border-radius: 50%">';
+									html += '<img src="' + mainURL + "/" + data.user.profileImage + '" style="width: 45px; height: 45px; object-fit: cover; border-radius: 50%;">';
 								html += '</figure>';
 
 								html += '<div class="friend-name">';

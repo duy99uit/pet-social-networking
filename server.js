@@ -2167,6 +2167,9 @@ http.listen(3000, function () {
 		app.get("/contact", function (request, result) {
 			result.render("contact");
 		});
+		app.get("/faq", function (request, result) {
+			result.render("faq");
+		});
 
 
 

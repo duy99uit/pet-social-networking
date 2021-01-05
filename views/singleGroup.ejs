@@ -2,7 +2,7 @@
     <section>
         <div class="feature-photo">
             <figure>
-                <img id="group-cover-photo">
+                <img id="group-cover-photo" style="width: 100%; height: 350px; object-fit: cover;">
             </figure>
             <div class="add-btn">
                 <span id="group-members"></span>
@@ -57,7 +57,7 @@
                     var response = JSON.parse(this.responseText);
                     document.getElementById("group-cover-photo").setAttribute("src", mainURL + "/" + response.data.coverPhoto);
                     document.getElementById("group-members").innerHTML = response.data.members.length + " likes";
-                    document.getElementById("group-name").innerHTML = response.data.name;
+                    document.getElementById("group-name").innerHTML = "Group: " + response.data.name;
                     var isMember = false;
 
                     for (var a = 0; a < response.data.members.length; a++) {
@@ -82,7 +82,7 @@
                         html += '<div class="user-post">';
                         html += '<div class="friend-info">';
                         html += '<figure>';
-                        html += '<img src="' + mainURL + "/" + data.uploader.profileImage + '">';
+                        html += '<img src="' + mainURL + "/" + data.uploader.profileImage + '" style="width: 45px; height: 45px; object-fit: cover; border-radius: 50%;">';
                         html += '</figure>';
                         //Time and Name
                         html += '<div class="friend-name">';
