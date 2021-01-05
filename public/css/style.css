@@ -2342,6 +2342,13 @@ footer .logo {
     font-size: 12px;
     position: relative;
 }
+.top-area .user-img {
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    line-height: 60px;
+}
 
 .user-setting {
     background: #fff none repeat scroll 0 0;
@@ -2357,7 +2364,11 @@ footer .logo {
     border: 1px solid #e1e8ed;
 }
 
-.user-setting.active {
+/* .user-setting.active {
+    opacity: 1;
+    visibility: visible;
+} */
+.top-area .user-img:hover .user-setting{
     opacity: 1;
     visibility: visible;
 }
