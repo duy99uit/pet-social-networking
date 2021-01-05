@@ -2,7 +2,7 @@
     <section>
         <div class="feature-photo">
             <figure>
-                <img id="page-cover-photo" style="width: 100%; height: 100vh; object-fit: cover;">
+                <img id="page-cover-photo" style="width: 100%; height: 350px; object-fit: cover;">
             </figure>
             <div class="add-btn">
                 <span id="page-likes"></span>
@@ -31,6 +31,7 @@
                         <div class="row" id="page-contents">
                             <div class="col-md-3">
                                 <%- include ("includes/left-sidebar") %>
+                                <%- include ("includes/recent-image") %>
                             </div>
                             <div class="col-md-6">
                                 <div id="add-post-box"></div>
@@ -73,7 +74,7 @@
                     }
                     document.getElementById("page-cover-photo").setAttribute("src", mainURL + "/" + response.data.coverPhoto);
                     document.getElementById("page-likes").innerHTML = response.data.likers.length + " likes";
-                    document.getElementById("page-name").innerHTML = response.data.name;
+                    document.getElementById("page-name").innerHTML = "Page: " + response.data.name;
 
 
                     if (response.data.user._id.toString() == window.user._id.toString()) {
@@ -129,6 +130,34 @@
                         html += '</div>';
                     }
                     document.getElementById("newsfeed").innerHTML = html;
+
+                    // show recent image
+
+                    var html_re = "";
+                    var render_img =0;
+                    if(response.posts.length >9){
+                        render_img =9
+                    }
+                    else{
+                        render_img = response.posts.length;
+                    }
+                    
+                    for (var a = 0; a < render_img; a++) {
+                        var data = response.posts[a];
+                        if (data.image != "") {
+
+
+                            html_re += '<li style="padding: 2px;">';
+                            html_re += '<a class="strip" href="' + mainURL + "/" + data.image + '" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">';
+                            html_re += '<img src="' + mainURL + "/" + data.image + '" alt=""></a>';
+                            html_re += '</li>';
+                        }
+
+
+
+
+                    }
+                    document.getElementById("recent-photos").innerHTML = html_re;
                 }
             };
             var formData = new FormData();

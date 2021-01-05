@@ -32,6 +32,7 @@
                         <div class="row" id="page-contents">
                             <div class="col-md-3">
                                 <%- include ("includes/left-sidebar") %>
+                                    <%- include ("includes/recent-image") %>
                             </div>
                             <div class="col-md-6">
                                 <div id="add-post-box"></div>
@@ -56,7 +57,7 @@
 
                     var response = JSON.parse(this.responseText);
                     document.getElementById("group-cover-photo").setAttribute("src", mainURL + "/" + response.data.coverPhoto);
-                    document.getElementById("group-members").innerHTML = response.data.members.length + " likes";
+                    document.getElementById("group-members").innerHTML = response.data.members.length + " Members";
                     document.getElementById("group-name").innerHTML = "Group: " + response.data.name;
                     var isMember = false;
 
@@ -76,7 +77,7 @@
                     response.posts = response.posts.reverse();
                     for (var a = 0; a < response.posts.length; a++) {
                         var data = response.posts[a];
-                        console.log(data.createdAt);
+                     
 
                         html += '<div class="central-meta item">';
                         html += '<div class="user-post">';
@@ -92,7 +93,7 @@
                         html += '</a>';
                         html += '</ins>';
                         var createdAt = new Date(data.createdAt);
-                        console.log(createdAt);
+                      
                         var date = createdAt.getDate() + "";
                         date = date.padStart(2, "0") + " " + months[createdAt.getMonth()] + ", " + createdAt.getFullYear();
                         // var createdAt = new Date(data.createdAt);
@@ -123,6 +124,35 @@
                         html += '</div>';
                     }
                     document.getElementById("newsfeed").innerHTML = html;
+
+                    // show recent image
+
+                    var html_re = "";
+                    var render_img =0;
+                    if(response.posts.length >9){
+                        render_img =9
+                    }
+                    else{
+                        render_img = response.posts.length;
+                    }
+                    
+                    for (var a = 0; a < render_img; a++) {
+                        var data = response.posts[a];
+                        if (data.image != "") {
+
+
+                            html_re += '<li style="padding: 2px;">';
+                            html_re += '<a class="strip" href="' + mainURL + "/" + data.image + '" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">';
+                            html_re += '<img src="' + mainURL + "/" + data.image + '" alt=""></a>';
+                            html_re += '</li>';
+                        }
+
+
+
+
+                    }
+                    document.getElementById("recent-photos").innerHTML = html_re;
+
                 }
             };
             var formData = new FormData();
