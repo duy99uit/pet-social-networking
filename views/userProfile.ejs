@@ -198,6 +198,8 @@ function showTimelineUser() {
 
 				if (data.image != "") {
 					html += '<img src="' + mainURL + "/" + data.image + '">';
+
+					
 				}
 
 				if (data.video != "") {
@@ -227,10 +229,13 @@ function showTimelineUser() {
 				if (data.image != "") {
 					html_image += '<li>';
 					html_image += '<div class="f-page">';
+						html_image += '<a class="strip" href="' + mainURL + "/" + data.image + '" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">';
 					html_image += '<img src ="' + mainURL + '/' + data.image + '" style="width: 250px; height: 183px; object-fit: cover;">';
-
+							html_image +='</a>';
 					html_image += '</div>';
 					html_image += '</li>';
+
+					
 				}
 
 			}
