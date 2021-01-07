@@ -171,6 +171,15 @@
 						if (typeof isGroupDetail !== "undefined" && isGroupDetail) {
 							getGroupDetail();
 						}
+						if (typeof isSuggestGroup !== "undefined" && isSuggestGroup) {
+							showSuggestGroups();
+						}
+						if (typeof isSuggestPage !== "undefined" && isSuggestPage) {
+							showSuggestPages();
+						}
+						if (typeof isSuggestFriend !== "undefined" && isSuggestFriend) {
+							showSuggestFriends();
+						}
 						if (typeof isNotifications !== "undefined" && isNotifications) {
 							showNotifications();
 							markNotificationsAsRead();
@@ -220,6 +229,10 @@
 			html += '<a href="/pages">Your Liked Pages</a> ';
 
 			html += '</li>';
+			html += '<li>';
+			html += '<a href="/pagesSuggest">Suggest Pages</a> ';
+
+			html += '</li>';
 			html += '</ul>';
 
 			html += '</li>';
@@ -233,6 +246,10 @@
 			html += '</li>';
 			html += '<li>';
 			html += '<a href="/groups">Groups</a> ';
+
+			html += '</li>';
+			html += '<li>';
+			html += '<a href="/groupsSuggest">Suggest Groups</a> ';
 
 			html += '</li>';
 			html += '</ul>';

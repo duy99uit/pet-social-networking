@@ -93,7 +93,7 @@
 							html += '<div class="nearly-pepls">';
 							html += '<figure>';
 							html += '<a href="/user/' + data.username + '">';
-							html += '<img src="' + mainURL + '/' + data.profileImage + '">';
+							html += '<img src="' + mainURL + '/' + data.profileImage + '" style="width: 60px; height: 60px;border-radius: 5px; object-fit:cover;">';
 							html += '</a>';
 							html += '</figure>';
 
@@ -133,14 +133,14 @@
 							html += '<li>';
 							html += '<div class="nearly-pepls">';
 							html += '<figure>';
-							html += '<a href="/">';
-							html += '<img src="' + mainURL + '/' + data.coverPhoto + '">';
+								html += '<a href="/page/' + data._id + '">';
+							html += '<img src="' + mainURL + '/' + data.coverPhoto + '" style="width: 60px; height: 60px;border-radius: 5px;object-fit:cover">';
 							html += '</a>';
 							html += '</figure>';
 
 							html += '<div class="pepl-info">';
 							html += '<h4>';
-							html += '<a href="/"">' + data.name + '</a>';
+							html += '<a href="/page/' + data._id + '">' + data.name + '</a>';
 							html += '</h4>';
 							if (isLiked) {
 								html += '<a href="javascript:void(0);" data-id="' + data._id + '" onclick="toggleLikePage(this)"; class="add-butn btn-unfriend">Unfollow Page</a>';
@@ -175,7 +175,7 @@
 							html += '<div class="nearly-pepls">';
 							html += '<figure>';
 							html += '<a href="/group/' + data._id + '">';
-							html += '<img src="' + mainURL + '/' + data.coverPhoto + '">';
+							html += '<img src="' + mainURL + '/' + data.coverPhoto + '" style="border-radius: 5px;">';
 							html += '</a>';
 							html += '</figure>';
 

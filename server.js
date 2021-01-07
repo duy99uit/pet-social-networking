@@ -2170,7 +2170,78 @@ http.listen(3000, function () {
 		app.get("/faq", function (request, result) {
 			result.render("faq");
 		});
-
+		app.get("/groupsSuggest", function (request, result) {
+			result.render("suggestGroups");
+		});
+		app.get("/pagesSuggest", function (request, result) {
+			result.render("suggestPages");
+		});
+		app.get("/friendSuggest", function (request, result) {
+			result.render("suggestFriends");
+		});
+		app.post("/getSuggestGroups",function (request, result){
+			var accessToken = request.fields.accessToken;
+			database.collection("users").findOne({
+				"accessToken": accessToken
+			}, function (error, user){
+				if (user == null) {
+					result.json({
+						"status":"error",
+						"message":"User has been logged out. Please login again."
+					});
+				} else{
+					database.collection("groups").aggregate([{ $sample: { size: 10 } }]).toArray(function(error,data){
+						result.json({
+							"status":"success",
+							"message":"Record has been fetched.",
+							"data": data
+						});
+					});
+				}
+			});
+		});
+		app.post("/getSuggestPages",function (request, result){
+			var accessToken = request.fields.accessToken;
+			database.collection("users").findOne({
+				"accessToken": accessToken
+			}, function (error, user){
+				if (user == null) {
+					result.json({
+						"status":"error",
+						"message":"User has been logged out. Please login again."
+					});
+				} else{
+					database.collection("pages").aggregate([{ $sample: { size: 10 } }]).toArray(function(error,data){
+						result.json({
+							"status":"success",
+							"message":"Record has been fetched.",
+							"data": data
+						});
+					});
+				}
+			});
+		});
+		app.post("/getSuggestFriends",function (request, result){
+			var accessToken = request.fields.accessToken;
+			database.collection("users").findOne({
+				"accessToken": accessToken
+			}, function (error, user){
+				if (user == null) {
+					result.json({
+						"status":"error",
+						"message":"User has been logged out. Please login again."
+					});
+				} else{
+					database.collection("users").aggregate([{ $sample: { size: 10 } }]).toArray(function(error,data){
+						result.json({
+							"status":"success",
+							"message":"Record has been fetched.",
+							"data": data
+						});
+					});
+				}
+			});
+		});
 
 
 
