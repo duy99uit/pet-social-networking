@@ -66,10 +66,11 @@ http.listen(3000, function () {
 							"password": hash,
 							"gender": gender,
 							"reset_token": reset_token,
-							"profileImage": "",
-							"coverPhoto": "",
+							"profileImage": "public/img/profile.jpg",
+							"coverPhoto": "public/img/cover.jpg",
 							"dob": "",
 							"city": "",
+							"job":"",
 							"country": "",
 							"aboutMe": "",
 							"friends": [],
@@ -202,10 +203,11 @@ http.listen(3000, function () {
 
 					if (request.files.coverPhoto.size > 0 && request.files.coverPhoto.type.includes("image")) {
 
-						if (user.coverPhoto != "") {
+						if (user.coverPhoto != "" && user.coverPhoto !="public/img/cover.jpg") {
 							fileSystem.unlink(user.coverPhoto, function (error) {
 								//
 							});
+							
 						}
 
 						coverPhoto = "public/images/" + new Date().getTime() + "-" + request.files.coverPhoto.name;
@@ -252,7 +254,7 @@ http.listen(3000, function () {
 
 					if (request.files.profileImage.size > 0 && request.files.profileImage.type.includes("image")) {
 
-						if (user.profileImage != "") {
+						if (user.profileImage != "" && user.profileImage !="public/img/profile.jpg") {
 							fileSystem.unlink(user.profileImage, function (error) {
 								//
 							});
