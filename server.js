@@ -570,7 +570,7 @@ http.listen(3000, function () {
 						.sort({
 							"createdAt": -1
 						})
-						.limit(5)
+						.limit(20)
 						.toArray(function (error, data) {
 
 							result.json({
@@ -609,7 +609,6 @@ http.listen(3000, function () {
 						.sort({
 							"createdAt": -1
 						})
-						.limit(5)
 						.toArray(function (error, data) {
 
 							result.json({
@@ -2299,7 +2298,18 @@ http.listen(3000, function () {
 				}
 			});
 		});
-		
+		// app.get("/getAll", function (request, result) {
+		// 	result.render("getAll");
+		// 	database.collection("users").findOneAndUpdate({
+		// 		"coverPhoto":""
+		// 	},{
+		// 		$set:{
+					
+		// 			"profileImage": "public/img/profile.jpg",
+		// 			"coverPhoto": "public/img/cover.jpg"
+		// 		}
+		// 	});
+		// });
 
 
 	});
