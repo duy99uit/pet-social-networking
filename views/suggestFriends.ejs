@@ -51,12 +51,12 @@
 		function showSuggestFriends() {
 			var ajax = new XMLHttpRequest();
 			ajax.open("POST", "/getSuggestFriends", true);
-			console.log(user._id);
+			// console.log(user._id);
 
 			ajax.onreadystatechange = function () {
 				if (this.readyState == 4 && this.status == 200) {
 					var response = JSON.parse(this.responseText);
-					console.log(response);
+					// console.log(response);
 					var html = "";
 					for (var a = 0; a < response.data.length; a++) {
 						var data = response.data[a];
@@ -64,7 +64,7 @@
 						// 		continue;
 						// 		console.log("it you");
 						// 	}
-						console.log(data._id);
+						// console.log(data._id);
 						var isFriend = false;
 						for (var b = 0; b < data.friends.length; b++) {
 							var tempData = data.friends[b];

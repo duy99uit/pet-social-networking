@@ -218,7 +218,7 @@
 
 		if (localStorage.getItem("accessToken")) {
 			
-			html += '<li style="margin-right: 75px; margin-left: 75px;>';
+			html += '<li >';
 			html += '<a href="/pages"><i class="fa fa-th-large" aria-hidden="true" style=" margin-top: 20px;"></i> </a> ';
 			html += '<ul style="margin-top: 20px">';
 			html += '<li>';
@@ -237,7 +237,7 @@
 
 			html += '</li>';
 
-			html += '<li style="margin-right: 75px;>';
+			html += '<li >';
 			html += '<a href="/groups"><i class="fa fa-users" aria-hidden="true" style=" margin-top: 20px;"></i> </a> ';
 			html += '<ul style="margin-top: 20px">';
 			html += '<li>';
@@ -270,7 +270,7 @@
 					html +='<a href="/logout" title="" onclick="return doLogout();"><i class="ti-power-off"></i>log out</a>';
 					html +='</div>';
 			html +='</div>';
-			html += '<a href="">';
+			html += '<a href="" class="avatar-name">';
 					
 					html +=window.user.name;
 					html += '</a>';

@@ -150,3 +150,72 @@
     transition: all 0.2s linear 0s;
     border-radius: 0 0 5px 5px;
 }
+.top-area > ul.main-menu > li {
+    padding: 0px 30px;
+}
+@media screen and (max-width: 980px){
+    .sidebar .widget {
+        margin: 10px;
+        width: 100%;
+    }
+}
+@media screen and (max-width: 746px){
+    a.avatar-name{
+        display: none;
+    }
+    .form-search {
+        position: absolute;
+        right: -200px;
+        top: 42px;
+        width: 300px;
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+@media screen and (max-width: 656px){
+    .top-area > ul.main-menu > li {
+        margin-right: 0px;
+        padding-right: 0px;
+    }
+    .top-area > ul.main-menu > li:nth-child(1){
+        margin-left: 0px;
+    }
+    .topbar {
+        padding: 0 20px;
+    }
+    .user-setting {
+        background: #fff none repeat scroll 0 0;
+        border-radius: 0 0 3px 3px;
+        position: absolute;
+        left: -200%;
+        text-align: left;
+        top: 100%;
+        width: 180px;
+        opacity: 0;
+        visibility: hidden;
+        line-height: initial;
+        border: 1px solid #e1e8ed;
+    }
+}
+@media screen and (max-width: 513px){
+    .top-area > ul.main-menu > li {
+       padding: 0 10px;
+    }
+    .form-search {
+        position: absolute;
+        right: -100px;
+        top: 42px;
+        width: 220px;
+        opacity: 0;
+        visibility: hidden;
+    }
+    .top-area {
+        display: inline-block;
+        text-align: right;
+        vertical-align: middle;
+        width: 70%;
+        float: right;
+    }
+    
+    
+}
