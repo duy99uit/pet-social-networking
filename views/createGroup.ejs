@@ -68,7 +68,7 @@
                     form.submit.removeAttribute("disabled");
 
                     var response = JSON.parse(this.responseText);
-
+                    console.log(response)
                     alert(response.message);
 
                     if (response.status == "success") {

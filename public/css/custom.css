@@ -88,13 +88,36 @@
     background-color: rgb(10, 204, 123);
     transform: translateX(10px);
 }
+.user-setting {
+    background: #fff none repeat scroll 0 0;
+    border-radius: 0 0 3px 3px;
+    position: absolute;
+    left: -15px;
+    text-align: left;
+    top: 100%;
+    width: 180px;
+    opacity: 0;
+    visibility: hidden;
+    line-height: initial;
+    border: 1px solid #e1e8ed;
+}
 .top-area > ul.main-menu > li a {
     color: #575b5f;
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 13px;
+    font-weight: 500;
     text-transform: capitalize;
     letter-spacing: 0.3px;
 }
+
+.top-area > ul.main-menu > .user-setting a {
+    color: #575b5f;
+    font-size: 12px;
+    font-weight: 300;
+    text-transform: capitalize;
+    letter-spacing: 0.3px;
+    
+}
+
 .top-area > ul.main-menu > li a i{
     color: #575b5f;
     /* font-size: 30px; */

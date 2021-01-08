@@ -2159,9 +2159,9 @@ http.listen(3000, function () {
 
 		});
 
-		app.post("/changePassword", function (request, result) {
+		// app.post("/changePassword", function (request, result) {
 
-		});
+		// });
 
 
 
@@ -2244,7 +2244,62 @@ http.listen(3000, function () {
 				}
 			});
 		});
-
+		//changepassword
+		app.get("/changePassword", function (request, result) {
+			result.render("changePassword");
+		});
+		app.post("/changePassword", function (request, result) {
+			var accessToken = request.fields.accessToken;
+			var oldpassword = request.fields.oldpassword;
+			var password = request.fields.newpassword;
+			var repassword = request.fields.renewpassword;
+			// console.log(password +" and  "+repassword);
+			database.collection("users").findOne({
+				"accessToken": accessToken
+			}, function (error, user) {
+				if (user == null) {
+					result.json({
+						"status": "error",
+						"message": "User has been logged out. Please login again."
+					});
+				} else {
+					bcrypt.compare(oldpassword, user.password, function (error, isVerify) {
+						if (isVerify) {
+							if(password === repassword){
+								bcrypt.hash(password, 10, function (error, hash) {
+									database.collection("users").updateOne({
+										"accessToken": accessToken
+									}, {
+										$set: {
+											"password": hash,
+										}
+									}, function (error, data) {
+										result.json({
+											"status": "success",
+											"message": "Change password successfully",
+											
+										});
+									});
+								});
+							}
+							else{
+								result.json({
+									"status": "error",
+									"message": "Confirm password is not correct."
+								});
+							}
+							
+						} else {
+							result.json({
+								"status": "error",
+								"message": "Password is not correct"
+							});
+						}
+					});
+				}
+			});
+		});
+		
 
 
 	});
