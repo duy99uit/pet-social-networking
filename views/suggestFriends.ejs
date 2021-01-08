@@ -68,7 +68,7 @@
 						var isFriend = false;
 						for (var b = 0; b < data.friends.length; b++) {
 							var tempData = data.friends[b];
-							if (tempData._id.toString() == user._id.toString()) {
+							if (tempData._id.toString() == user._id.toString() || data._id == user._id.toString()) {
 								isFriend = true;
 								break;
 							}
