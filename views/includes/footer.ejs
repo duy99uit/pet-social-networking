@@ -277,12 +277,15 @@
 			html += '<li>';
 		} else {
 			html += '<li>';
-			html += '<a href="/login">Login</a>';
+			html += '<a href="/login" class="btn-login">Login</a>';
 			html += '</li>';
 
 			html += '<li>';
-			html += '<a href="/signup">Signup</a>';
+			html += '<a href="/signup" class="btn-regi">Signup</a>';
 			html += '</li>';
+
+			setTimeout(function(){ window.location.href = "/login"; }, 1000);
+			
 		}
 
 		document.getElementById("main-menu").innerHTML = html;
